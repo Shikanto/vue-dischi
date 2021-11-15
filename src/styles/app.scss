@@ -10,3 +10,23 @@
 body{
     font-family: $main-font;
 }
+
+.card{
+    background-color: $background-header;
+    padding: 20px;
+    height: 100%;
+    
+    h1{
+        color: white;
+        font-weight: bold;
+        font-size: 1.4rem;
+    }
+    
+    .card-text{
+        color:$text-color-card;
+        margin-top: 30px;
+    }
+
+
+
+}
