@@ -1,14 +1,16 @@
 <template>
-    
-    <div class="row row-cols-1 row-cols-md-5 g-4">
-        <SelectBar :genreMusic="genreList"></SelectBar>
-        <div class="col" v-for="(disc, i) in discList" :key="i">
-            <CardDisc :author="disc.author" 
-            :genre="disc.genre" 
-            :poster="disc.poster" 
-            :title="disc.title" 
-            :year="disc.year">
-            </CardDisc>
+    <div class="container-disc">
+        <h1>Seleziona il tuo genere Musicale:</h1>
+        <SelectBar @genreChange="onGenreFilter" :genreMusic="getGenreList"></SelectBar>
+        <div class="row row-cols-1 row-cols-md-5 g-4">
+            <div class="col" v-for="(disc, i) in filteredGenreMusic" :key="i">
+                <CardDisc :author="disc.author" 
+                :genre="disc.genre" 
+                :poster="disc.poster" 
+                :title="disc.title" 
+                :year="disc.year">
+                </CardDisc>
+            </div>
         </div>
     </div>
 </template>
@@ -24,6 +26,7 @@ export default {
     data() {
         return {
             discList: [],
+            genreFilter: "",
         };
     },
     computed: {
@@ -40,6 +43,22 @@ export default {
             console.log(genreList);
             return genreList;
         },
+        filteredGenreMusic() {
+            if (!this.genreFilter || this.genreFilter === "All") {
+                return this.discList;
+            }
+
+            return this.discList.filter((typeMusic) => {
+                console.log(typeMusic)
+                return this.genreFilter === typeMusic.genre;
+            })
+        }
+    },
+
+    methods: {
+        onGenreFilter(genreToFilter) {
+            this.genreFilter = genreToFilter;
+        }
     },
 
     mounted() {
